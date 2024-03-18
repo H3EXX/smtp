@@ -2,7 +2,13 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import argparse
+import sys
+import time
+import pyfiglet
 
+def create_pyfiglet_banner(name):
+    banner = pyfiglet.figlet_format(name, font="isometric1")
+    print(banner)
 def send_email(sender_email, receiver_email, subject, message, smtp_server, smtp_port):
     # Set up the MIME
     msg = MIMEMultipart()
@@ -17,29 +23,24 @@ def send_email(sender_email, receiver_email, subject, message, smtp_server, smtp
         # Connect to the SMTP server
         server = smtplib.SMTP(smtp_server, smtp_port)
         server.starttls()  # Start TLS encryption
+        
+        # Progress animation
+        animation = "|/-\\"
+        for i in range(20):
+            sys.stdout.write("\r" + f"\033[32m[+] Sending Email {animation[i % len(animation)]}\033[0m ")
+            sys.stdout.flush()
+            time.sleep(0.1)
+
         # Send the email
         server.sendmail(sender_email, receiver_email, msg.as_string())
         # Close the connection
         server.quit()
-        print("Email sent successfully!")
+        print("\n\033[32m[+] Email sent successfully!\033[0m")
     except Exception as e:
-        print(f"Failed to send email. Error: {e}")
-
-def print_banner():
-    banner = """
-    _____ _ _     _       _     _             
-  / ____(_) |   | |     | |   | |            
- | |  __ _| |__ | |_ ___| |__ | |_ ___  _ __ 
- | | |_ | | '_ \| __/ _ \ '_ \| __/ _ \| '__|
- | |__| | | | | | ||  __/ |_) | || (_) | |   
-  \_____|_|_| |_|\__\___|_.__/ \__\___/|_|   
-                                             
-    """
-    print(banner)
+        print(f"\n\033[31m[-] Failed to send email. Error: {e}\033[0m")
 
 if __name__ == "__main__":
-    print_banner()
-    
+    create_pyfiglet_banner("Mailox")
     parser = argparse.ArgumentParser(description='Send an email via SMTP')
     parser.add_argument('--sender-email', required=True, help='Sender email address')
     parser.add_argument('--receiver-email', required=True, help='Recipient email address')
