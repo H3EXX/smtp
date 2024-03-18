@@ -11,3 +11,13 @@ This tool is a command-line interface (CLI) application written in Python that f
 ```python
 python send_email_cli.py --sender-email hacker@attacker.com --receiver-email <USER>@<Domain> --subject "Subject" --message "Message" --smtp-server <HOST> --smtp-port 25
 ```
+
+
+### [+] Sendmail_gui
+
+![image](https://github.com/H3EXX/smtp/assets/111686217/3567414b-06f8-4fd6-84e5-a078108af1cf)
+
+## Usage
+```
+./sendmail.py
+```
