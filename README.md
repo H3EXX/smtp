@@ -4,6 +4,6 @@ This tool is a command-line interface (CLI) application written in Python that f
 
 
 ### Usage:
-```
+```python
 python send_email_cli.py --sender-email hacker@attacker.com --receiver-email <USER>@<Domain> --subject "Subject" --message "Message" --smtp-server <HOST> --smtp-port 25
 ```
